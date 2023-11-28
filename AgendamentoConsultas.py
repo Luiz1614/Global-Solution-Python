@@ -73,6 +73,16 @@ def AgendaConsultas():
     consultas_agendadas.append(consulta)
     print("\nConsulta agendada Com Sucesso!")
 
+def VerConsultasAgendadas():
+    print("\nConsultas Agendadas:")
+    for i, consulta in enumerate(consultas_agendadas):
+        print(f"\nÍndice: {i + 1}")
+        print(f"Nome do Paciente: {consulta['Nome do Paciente']}")
+        print(f"Telefone: {consulta['Telefone']}")
+        print(f"Data da Consulta: {consulta['Data da Consulta']}")
+        print(f"Horário da Consulta: {consulta['Horário da Consulta']}")
+        print("------------------------")
+
 while True:
     print("\n-----------------------------------")
     print("| Bem vindo ao sistema NotreDame! |")
@@ -91,7 +101,16 @@ while True:
     match opcao:
         case 1:
             AgendaConsultas()
-        case _:
+            break
+        case 2:
+            VerConsultasAgendadas()
+            break
+        case 3:
+            #CancelarAgendamento()
+            break
+        case 4:
             print("Até logo!")
             break
+        case _:
+            print("Opção inválida. Digite novamente!")
 
