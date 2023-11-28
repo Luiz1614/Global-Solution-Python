@@ -1,4 +1,77 @@
+from datetime import datetime, timedelta
+import re
 
+consultas_agendadas = []
+
+def ValidaIdade(data_nascimento):
+    hoje = datetime.now().date()
+    idade = hoje.year - data_nascimento.year - ((hoje.month, hoje.day) < (data_nascimento.month, data_nascimento.day))
+    return idade >= 18
+
+def AgendaConsultas():
+    nome_paciente = input("Digite seu nome completo: ")
+
+    while True:
+        try:
+            nascimento_paciente = input("Digite sua data de nascimento (DD/MM/AAAA): ")
+            nascimento_paciente = datetime.strptime(nascimento_paciente, "%d/%m/%Y").date()
+
+            if ValidaIdade(nascimento_paciente):
+                break
+            else:
+                print("É necessário ser maior de 18 anos para agendar uma consulta.")
+
+        except ValueError:
+            print("Formato de data inválido. Tente novamente.")
+
+    while True:
+        try:
+            telefone_paciente = input("Digite seu telefone para contato: ")
+            if re.match(r'^\d{2}\d{9}$', telefone_paciente):
+                break
+            else:
+                print("Formato de telefone inválido. Tente novamente.")
+        except Exception as exeption:
+            print(f"Erro: {exeption}")
+
+    while True:
+        try:
+            data_consulta = input("Digite a data da consulta (DD/MM/AAAA): ")
+            data_consulta = datetime.strptime(data_consulta, "%d/%m/%Y").date()
+
+            data_limite = datetime.now().date() + timedelta(days=2)
+
+            if data_consulta >= data_limite:
+                break
+            else:
+                print("É necessário agendar consultas com pelo menos 2 dias após a data atual. Digite Novamente.")
+
+        except ValueError:
+            print("Formato de data inválido. Tente novamente.")
+
+    while True:
+        try:
+            horario_consulta = input("Digite o horário desejado para a consulta entre 7:00 e 18:00 (HH:MM): ")
+            horario_consulta = datetime.strptime(horario_consulta, "%H:%M").time()
+
+            if 7 <= horario_consulta.hour <= 18:
+                break
+            else:
+                print("Horário fora do intervalo permitido (7:00 - 18:00). Digite novamente.")
+
+        except ValueError:
+            print("Formato de data ou horário inválido. Tente novamente.")
+
+    consulta = {
+        'Nome do Paciente': nome_paciente,
+        'Telefone': telefone_paciente,
+        'Data Nascimento': nascimento_paciente,
+        'Data da Consulta': data_consulta,
+        'Horário da Consulta': horario_consulta
+    }
+
+    consultas_agendadas.append(consulta)
+    print("\nConsulta agendada Com Sucesso!")
 
 while True:
     print("\n-----------------------------------")
@@ -14,3 +87,11 @@ while True:
     except ValueError:
         print("Opção Inválida! Digite Novamente")
         continue
+
+    match opcao:
+        case 1:
+            AgendaConsultas()
+        case _:
+            print("Até logo!")
+            break
+
