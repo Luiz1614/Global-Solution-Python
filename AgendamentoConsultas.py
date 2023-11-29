@@ -83,6 +83,13 @@ def VerConsultasAgendadas():
         print(f"Horário da Consulta: {consulta['Horário da Consulta']}")
         print("------------------------")
 
+def RemoverConsulta(indice):
+    if 0 <= indice < len(consultas_agendadas):
+        consultas_agendadas.pop(indice)
+        print(f"\nConsulta removida com sucesso!")
+    else:
+        print("Índice inválido. Nenhuma consulta removida.")
+
 while True:
     print("\n-----------------------------------")
     print("| Bem vindo ao sistema NotreDame! |")
@@ -106,7 +113,9 @@ while True:
             VerConsultasAgendadas()
             break
         case 3:
-            #CancelarAgendamento()
+            VerConsultasAgendadas()
+            indice_remover = int(input("Digite o índice da consulta a ser removida: ")) - 1
+            RemoverConsulta(indice_remover)
             break
         case 4:
             print("Até logo!")
