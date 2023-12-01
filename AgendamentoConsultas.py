@@ -26,7 +26,7 @@ def AgendaConsultas():
 
     while True:
         try:
-            telefone_paciente = input("Digite seu telefone para contato: ")
+            telefone_paciente = input("Digite seu telefone para contato (Digite somente números): ")
             if re.match(r'^\d{2}\d{9}$', telefone_paciente):
                 break
             else:
@@ -108,15 +108,12 @@ while True:
     match opcao:
         case 1:
             AgendaConsultas()
-            break
         case 2:
             VerConsultasAgendadas()
-            break
         case 3:
             VerConsultasAgendadas()
             indice_remover = int(input("Digite o índice da consulta a ser removida: ")) - 1
             RemoverConsulta(indice_remover)
-            break
         case 4:
             print("Até logo!")
             break
